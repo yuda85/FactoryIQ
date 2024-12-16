@@ -7,6 +7,8 @@ import { ChartConfiguration, ChartData, ChartEvent, ChartType } from 'chart.js';
 // import { BaseChartDirective } from 'ng2-charts';
 import { MatButton } from '@angular/material/button';
 import { MatDivider } from '@angular/material/divider';
+import { Department } from '../../models';
+// import { Department } from '../../models/machine.interface';
 // import { ChartHostComponent } from '../chart-host/chart-host.component';
 
 @Component({
@@ -22,7 +24,28 @@ export class MachinesDashboardComponent {
 
   ngOnInit() {
     this.sub.add(
-      this.machineService.getMachinesData().subscribe((data) => {
+      this.machineService.getMachinesData().subscribe((data: Department[]) => {
+        data.forEach((department) => {
+          if (department.id === 1) {
+            const machinesObj = {};
+
+            department.machines.forEach((machine) => {
+              if (machinesObj[machine.status]) {
+                machinesObj[machine.status]++;
+              } else {
+                machinesObj[machine.status] = 1;
+              }
+            });
+
+            console.log('Mapped Data', machinesObj);
+
+            this.pieChartData.labels = Object.keys(machinesObj);
+            this.pieChartData.datasets[0].data = Object.values(machinesObj);
+
+            this.chart?.update();
+          }
+        });
+
         console.log(data);
       })
     );
@@ -52,13 +75,14 @@ export class MachinesDashboardComponent {
     },
   };
   public pieChartData: ChartData<'pie', number[], string | string[]> = {
-    labels: ['', '', 'Mail Sales'],
+    labels: ['Running', 'Idle', 'Under Maintenance'],
     datasets: [
       {
         data: [300, 500, 100],
       },
     ],
   };
+
   public pieChartType: ChartType = 'pie';
 
   // events
