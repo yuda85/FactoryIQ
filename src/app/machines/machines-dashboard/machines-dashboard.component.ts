@@ -10,12 +10,13 @@ import { MatDivider } from '@angular/material/divider';
 import { Department, IPieChart } from '../../models';
 import { PieComponent } from '../../components/pie/pie.component';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 // import { Department } from '../../models/machine.interface';
 // import { ChartHostComponent } from '../chart-host/chart-host.component';
 
 @Component({
   selector: 'app-machines-dashboard',
-  imports: [PieComponent, CommonModule],
+  imports: [PieComponent, CommonModule, RouterModule],
   templateUrl: './machines-dashboard.component.html',
   styleUrl: './machines-dashboard.component.scss',
 })

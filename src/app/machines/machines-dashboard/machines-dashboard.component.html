@@ -1,6 +1,8 @@
 <div class="machines">
   <div class="machine-pie-chart" *ngFor="let item of chartsData | keyvalue">
-    <h2>{{ item.key }}</h2>
+    <h2>
+      <a [routerLink]="['/machine-statuses', item.key]">{{ item.key }}</a>
+    </h2>
     <app-pie
       [pieChartData]="item.value"
       [pieChartOptions]="pieChartOptions"

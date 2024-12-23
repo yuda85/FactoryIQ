@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { Department } from '../models';
 
 @Injectable({
   providedIn: 'root',
@@ -11,9 +12,11 @@ export class MachinesService {
     }, 5000);
   }
 
-  private machinesData$: BehaviorSubject<any> = new BehaviorSubject([]);
+  private machinesData$: BehaviorSubject<Department[]> = new BehaviorSubject(
+    []
+  );
 
-  public getMachinesData(): Observable<any> {
+  public getMachinesData(): Observable<Department[]> {
     return this.machinesData$.asObservable();
   }
 
