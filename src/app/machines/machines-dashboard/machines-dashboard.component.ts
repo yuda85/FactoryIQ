@@ -13,10 +13,11 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 // import { Department } from '../../models/machine.interface';
 // import { ChartHostComponent } from '../chart-host/chart-host.component';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-machines-dashboard',
-  imports: [PieComponent, CommonModule, RouterModule],
+  imports: [PieComponent, CommonModule, RouterModule, MatTabsModule],
   templateUrl: './machines-dashboard.component.html',
   styleUrl: './machines-dashboard.component.scss',
 })

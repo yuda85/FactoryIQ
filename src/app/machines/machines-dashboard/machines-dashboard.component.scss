@@ -1,5 +1,7 @@
 .machines {
-  display: flex;
-  flex-wrap: wrap;
-  color: #565099;
+  &__charts {
+    display: flex;
+    flex-wrap: wrap;
+    color: #565099;
+  }
 }

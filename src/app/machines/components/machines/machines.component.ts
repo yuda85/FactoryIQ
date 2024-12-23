@@ -38,22 +38,28 @@ export class MachinesComponent {
         )
         .subscribe((data: Department) => {
           console.log(data);
-          const mappedData = {
-            labels: [],
-            datasets: [{ data: [], label: '' }],
-          };
+          const colors = ['#9BD0F5', '#973838', '#565099'];
+
+          this.charts = [];
 
           data.machines.forEach((machine) => {
+            const mappedData = {
+              labels: [],
+              datasets: [{ data: [], label: '' }],
+            };
             mappedData.labels = Object.keys(machine.metrics);
+
+            // mappedData.labels.forEach();
             const machineData = {
               data: Object.keys(machine.metrics).map((key) => {
                 return machine.metrics[key];
               }),
               label: machine.name,
+              colors: colors,
             };
 
             mappedData.datasets = [machineData];
-            this.charts = [];
+
             this.charts.push(mappedData);
             console.log(this.charts);
           });
