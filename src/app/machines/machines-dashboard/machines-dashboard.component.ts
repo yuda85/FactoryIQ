@@ -34,11 +34,13 @@ export class MachinesDashboardComponent {
   private sub: Subscription = new Subscription();
 
   public chartsData: { [key: string]: IPieChart } = {};
+  public departmentsData: Department[];
 
   ngOnInit() {
     const colors = ['#9BD0F5', '#973838', '#565099'];
     this.sub.add(
       this.machineService.getMachinesData().subscribe((data: Department[]) => {
+        this.departmentsData = data;
         data.forEach((department) => {
           const machinesObj = {};
 

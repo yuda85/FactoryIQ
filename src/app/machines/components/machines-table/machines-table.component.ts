@@ -59,14 +59,55 @@ const NAMES: string[] = [
   styleUrl: './machines-table.component.scss',
 })
 export class MachinesTableComponent {
-  displayedColumns: string[] = ['id', 'name', 'progress', 'fruit'];
+  displayedColumns: string[] = [
+    'department',
+    'machine id',
+    'machine name',
+    'efficiency',
+    'pressure',
+    'temperature',
+    'status',
+  ];
   dataSource: MatTableDataSource<UserData>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   @Input() set departmentsData(departmentsData: Department[]) {
-    //map this data to machine data
+    this.mapDepartmentsDataToTable(departmentsData);
+  }
+
+  private mapDepartmentsDataToTable(departmentsData: Department[]): void {
+    /**
+     * department
+     * machine id
+     * machine name
+     * efficiency
+     * pressure
+     * temperature
+     * status
+     */
+
+    const flatData = [];
+
+    departmentsData.forEach((department) => {
+      department.machines.forEach((machine) => {
+        const mappedMachine = {
+          department: department.name,
+          machineId: machine.id,
+          machineName: machine.name,
+          efficiency: machine.metrics.efficiency,
+          pressure: machine.metrics.pressure,
+          temperature: machine.metrics.temperature,
+          status: machine.status,
+        };
+
+        flatData.push(mappedMachine);
+      });
+    });
+
+    console.log('flat data: ', flatData);
+    this.dataSource = new MatTableDataSource(flatData);
   }
 
   constructor() {

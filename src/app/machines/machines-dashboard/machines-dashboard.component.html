@@ -17,7 +17,9 @@
       </div>
     </mat-tab>
     <mat-tab label="Table">
-      <app-machines-table></app-machines-table>
+      <app-machines-table
+        [departmentsData]="departmentsData"
+      ></app-machines-table>
     </mat-tab>
   </mat-tab-group>
 </div>
