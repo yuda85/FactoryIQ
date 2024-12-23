@@ -61,8 +61,8 @@ const NAMES: string[] = [
 export class MachinesTableComponent {
   displayedColumns: string[] = [
     'department',
-    'machine id',
-    'machine name',
+    'machineId',
+    'machineName',
     'efficiency',
     'pressure',
     'temperature',
@@ -75,6 +75,8 @@ export class MachinesTableComponent {
 
   @Input() set departmentsData(departmentsData: Department[]) {
     this.mapDepartmentsDataToTable(departmentsData);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   private mapDepartmentsDataToTable(departmentsData: Department[]): void {
