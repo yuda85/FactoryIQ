@@ -6,13 +6,24 @@
           class="machine-pie-chart"
           *ngFor="let item of chartsData | keyvalue"
         >
-          <h2>
-            <a [routerLink]="['/machine-statuses', item.key]">{{ item.key }}</a>
-          </h2>
-          <app-pie
-            [pieChartData]="item.value"
-            [pieChartOptions]="pieChartOptions"
-          ></app-pie>
+          <mat-card appearance="outlined">
+            <mat-card-header>
+              <mat-card-title>
+                <a [routerLink]="['/machine-statuses', item.key]">{{
+                  item.key
+                }}</a></mat-card-title
+              >
+              <mat-card-subtitle
+                >Efficiancy Avarage: {{ this.efficiancyAvg[item.key] }}
+              </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <app-pie
+                [pieChartData]="item.value"
+                [pieChartOptions]="pieChartOptions"
+              ></app-pie>
+            </mat-card-content>
+          </mat-card>
         </div>
       </div>
     </mat-tab>

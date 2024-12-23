@@ -15,6 +15,7 @@ import { RouterModule } from '@angular/router';
 // import { ChartHostComponent } from '../chart-host/chart-host.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MachinesTableComponent } from '../components/machines-table/machines-table.component';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-machines-dashboard',
@@ -24,6 +25,7 @@ import { MachinesTableComponent } from '../components/machines-table/machines-ta
     RouterModule,
     MatTabsModule,
     MachinesTableComponent,
+    MatCardModule,
   ],
   templateUrl: './machines-dashboard.component.html',
   styleUrl: './machines-dashboard.component.scss',
@@ -36,19 +38,35 @@ export class MachinesDashboardComponent {
   public chartsData: { [key: string]: IPieChart } = {};
   public departmentsData: Department[];
 
+  public efficiancyAvg: { [key: string]: number } = {};
+
   ngOnInit() {
     const colors = ['#9BD0F5', '#973838', '#565099'];
     this.sub.add(
       this.machineService.getMachinesData().subscribe((data: Department[]) => {
         this.departmentsData = data;
+        this.efficiancyAvg = {};
         data.forEach((department) => {
           const machinesObj = {};
 
-          department.machines.forEach((machine) => {
+          department.machines.forEach((machine, index) => {
             if (machinesObj[machine.status]) {
               machinesObj[machine.status]++;
             } else {
               machinesObj[machine.status] = 1;
+            }
+
+            if (this.efficiancyAvg[department.name]) {
+              this.efficiancyAvg[department.name] =
+                this.efficiancyAvg[department.name] +
+                machine.metrics.efficiency;
+            } else {
+              this.efficiancyAvg[department.name] = machine.metrics.efficiency;
+            }
+            console.count(`${machine.metrics.efficiency}`);
+            if (index == 4) {
+              this.efficiancyAvg[department.name] =
+                this.efficiancyAvg[department.name] / 5;
             }
           });
 
