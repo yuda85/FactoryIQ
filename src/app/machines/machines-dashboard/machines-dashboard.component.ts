@@ -38,7 +38,7 @@ export class MachinesDashboardComponent {
   public chartsData: { [key: string]: IPieChart } = {};
   public departmentsData: Department[];
 
-  public efficiancyAvg: { [key: string]: number } = {};
+  public efficiancyAvg: { [departmentName: string]: number } = {};
 
   ngOnInit() {
     const colors = ['#9BD0F5', '#973838', '#565099'];
@@ -63,10 +63,10 @@ export class MachinesDashboardComponent {
             } else {
               this.efficiancyAvg[department.name] = machine.metrics.efficiency;
             }
-            console.count(`${machine.metrics.efficiency}`);
-            if (index == 4) {
+            if (index == department.machines.length - 1) {
               this.efficiancyAvg[department.name] =
-                this.efficiancyAvg[department.name] / 5;
+                this.efficiancyAvg[department.name] /
+                department.machines.length;
             }
           });
 
