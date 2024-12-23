@@ -14,10 +14,17 @@ import { RouterModule } from '@angular/router';
 // import { Department } from '../../models/machine.interface';
 // import { ChartHostComponent } from '../chart-host/chart-host.component';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MachinesTableComponent } from '../components/machines-table/machines-table.component';
 
 @Component({
   selector: 'app-machines-dashboard',
-  imports: [PieComponent, CommonModule, RouterModule, MatTabsModule],
+  imports: [
+    PieComponent,
+    CommonModule,
+    RouterModule,
+    MatTabsModule,
+    MachinesTableComponent,
+  ],
   templateUrl: './machines-dashboard.component.html',
   styleUrl: './machines-dashboard.component.scss',
 })

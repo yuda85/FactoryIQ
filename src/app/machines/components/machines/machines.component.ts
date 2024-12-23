@@ -61,7 +61,7 @@ export class MachinesComponent {
             mappedData.datasets = [machineData];
 
             this.charts.push(mappedData);
-            console.log(this.charts);
+            // console.log(this.charts);
           });
           // this.barChartData = mappedData;
 

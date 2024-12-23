@@ -12,8 +12,8 @@ import { BaseChartDirective } from 'ng2-charts';
 export class PieComponent {
   @Input() set pieChartData(data: IPieChart) {
     this._pieChartData = data;
-    console.log(this.chart);
-    console.log('update');
+    // console.log(this.chart);
+    // console.log('update');
     this.chart?.update();
   }
 
