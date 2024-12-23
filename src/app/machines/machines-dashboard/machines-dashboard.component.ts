@@ -9,12 +9,13 @@ import { MatButton } from '@angular/material/button';
 import { MatDivider } from '@angular/material/divider';
 import { Department, IPieChart } from '../../models';
 import { PieComponent } from '../../components/pie/pie.component';
+import { CommonModule } from '@angular/common';
 // import { Department } from '../../models/machine.interface';
 // import { ChartHostComponent } from '../chart-host/chart-host.component';
 
 @Component({
   selector: 'app-machines-dashboard',
-  imports: [BaseChartDirective, MatButton, MatDivider, PieComponent],
+  imports: [PieComponent, CommonModule],
   templateUrl: './machines-dashboard.component.html',
   styleUrl: './machines-dashboard.component.scss',
 })
@@ -23,35 +24,58 @@ export class MachinesDashboardComponent {
 
   private sub: Subscription = new Subscription();
 
+  public chartsData: { [key: string]: IPieChart } = {};
+
   ngOnInit() {
+    const colors = ['#9BD0F5', '#973838', '#565099'];
     this.sub.add(
       this.machineService.getMachinesData().subscribe((data: Department[]) => {
         data.forEach((department) => {
-          if (department.id === 1) {
-            const machinesObj = {};
+          const machinesObj = {};
 
-            department.machines.forEach((machine) => {
-              if (machinesObj[machine.status]) {
-                machinesObj[machine.status]++;
-              } else {
-                machinesObj[machine.status] = 1;
-              }
-            });
+          department.machines.forEach((machine) => {
+            if (machinesObj[machine.status]) {
+              machinesObj[machine.status]++;
+            } else {
+              machinesObj[machine.status] = 1;
+            }
+          });
 
-            console.log('Mapped Data', machinesObj);
+          // console.log('Mapped Data', machinesObj);
 
-            this.pieChartData = {
-              labels: Object.keys(machinesObj),
-              datasets: [
-                {
-                  data: Object.values(machinesObj),
-                },
-              ],
-            };
+          this.pieChartData = {
+            labels: Object.keys(machinesObj),
+            // labels: ['Running', 'Idle', 'Under Maintenance'],
+            datasets: [
+              // {
+              //   label: Object.keys(machinesObj)[0],
+              //   data: Object.values(machinesObj),
+              //   borderColor: '#36A2EB',
+              //   backgroundColor: '#9BD0F5',
+              // },
+              // {
+              //   label: Object.keys(machinesObj)[1],
+              //   data: Object.values(machinesObj),
+              //   borderColor: '#36A2EB',
+              //   backgroundColor: '#9BD0F5',
+              // },
+              // {
+              //   label: Object.keys(machinesObj)[2],
+              //   data: Object.values(machinesObj),
+              //   borderColor: '#36A2EB',
+              //   backgroundColor: '#9BD0F5',
+              // },
+              {
+                data: Object.values(machinesObj),
+                backgroundColor: colors,
+              },
+            ],
+          };
 
-            // this.pieChartData.labels = Object.keys(machinesObj);
-            // this.pieChartData.datasets[0].data = Object.values(machinesObj);
-          }
+          this.chartsData[department.name] = this.pieChartData;
+
+          // this.pieChartData.labels = Object.keys(machinesObj);
+          // this.pieChartData.datasets[0].data = Object.values(machinesObj);
         });
 
         console.log(data);
@@ -74,7 +98,7 @@ export class MachinesDashboardComponent {
       },
     },
   };
-  public pieChartData: IPieChart = {
+  public pieChartData: any = {
     labels: ['Running', 'Idle', 'Under Maintenance'],
     datasets: [
       {

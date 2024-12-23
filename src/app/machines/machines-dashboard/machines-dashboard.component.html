@@ -1,11 +1,9 @@
 <div class="machines">
-  <app-pie
-    [pieChartData]="pieChartData"
-    [pieChartOptions]="pieChartOptions"
-  ></app-pie>
-
-  <app-pie
-    [pieChartData]="pieChartData"
-    [pieChartOptions]="pieChartOptions"
-  ></app-pie>
+  <div class="machine-pie-chart" *ngFor="let item of chartsData | keyvalue">
+    <h2>{{ item.key }}</h2>
+    <app-pie
+      [pieChartData]="item.value"
+      [pieChartOptions]="pieChartOptions"
+    ></app-pie>
+  </div>
 </div>
