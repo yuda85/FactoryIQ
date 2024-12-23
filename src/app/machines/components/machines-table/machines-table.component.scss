@@ -10,4 +10,34 @@ table {
 td,
 th {
   width: 25%;
+  text-align: center;
+  vertical-align: baseline;
+
+  .flex {
+    display: flex;
+    justify-content: center;
+    align-items: self-end;
+  }
+}
+
+.red {
+  background-color: rgb(255, 190, 190);
+}
+.orange {
+  background-color: rgb(255, 246, 190);
+}
+.green {
+  background-color: rgb(190, 255, 206);
+}
+
+.warn {
+  fill: red;
+  color: red;
+}
+
+.red-border {
+  > td {
+    border-top: 1px solid red;
+    border-bottom: 1px solid red;
+  }
 }
