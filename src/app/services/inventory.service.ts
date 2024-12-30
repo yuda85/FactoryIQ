@@ -1,19 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-
-export interface InventoryItem {
-  id: number;
-  name: string;
-  stock: number;
-  reorderLevel: number;
-  status: 'In Stock' | 'Low Stock' | 'Out of Stock';
-}
-
-export interface Department {
-  id: number;
-  name: string;
-  inventory: InventoryItem[];
-}
+import { Department } from '../models';
 
 @Injectable({
   providedIn: 'root',
