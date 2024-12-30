@@ -8,6 +8,7 @@ import { Department } from '../models';
 export class InventoryService {
   constructor() {
     // Simulate data updates every 2 seconds
+    this.mockInventoryData();
     setInterval(() => {
       this.mockInventoryData();
     }, 2000); // Update every 2 seconds
